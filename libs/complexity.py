@@ -10,7 +10,7 @@ class ClassComplexityCalculator:
 
     @classmethod
     def score_comments(cls, comments):
-        return list(map(cls.score_comment, comments))
+        return list(map(lambda x: cls.score_comment(x[3]), comments))
 
     @classmethod
     def get_clever_coeff(cls, comment_scores):
@@ -22,12 +22,11 @@ class ClassComplexityCalculator:
         Получаем из коэффициента понимания учеников скор учителя
         Чем больше soft_coeff, тем мягче оценивание труда учителя
         '''
-        print(clever_coeff, (-((1-clever_coeff) ** soft_coeff) + 1))
         return round(-((1-clever_coeff) ** soft_coeff) + 1, 2)
 
     @classmethod
     def calculate(cls, comments, soft_coeff=None):
-        soft_coeff = soft_coeff or 0.6
+        soft_coeff = soft_coeff or 0.9
         comment_scores = cls.score_comments(comments)
         comment_scores = [x for x in comment_scores if x >= 0]
         clever_coeff = cls.get_clever_coeff(comment_scores)

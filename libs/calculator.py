@@ -22,9 +22,9 @@ class Calculator:
 
         match self.parameter:
             case 'positive' | 'swear':
-                comment_scores = list(map(lambda x: classifier.get_sentiment(x, self.parameter), comments))
+                comment_scores = list(map(lambda x: classifier.get_sentiment(x[3], self.parameter), comments))
             case 'tech' | 'complexity':
-                comment_scores = list(map(lambda x: classifier.get_sentiment(x), comments))
+                comment_scores = list(map(lambda x: classifier.get_sentiment(x[3]), comments))
 
         comment_scores = [x for x in comment_scores if x >= 0]
 

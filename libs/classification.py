@@ -6,8 +6,6 @@ from replicate.client import Client
 
 load_dotenv()
 
-print(os.environ.get('replicate_api_token'))
-
 replicate = Client(api_token=os.getenv('REPLICATE_API_TOKEN'))
 
 
@@ -64,9 +62,9 @@ class LLamaClassifier:
                     "meta/meta-llama-3-70b-instruct",
                     input=input))
 
-            print(content)
-
             try:
+                print(text)
+                print(float(content.strip()))
                 return float(content.strip())
             except Exception as e:
                 print(str(e))

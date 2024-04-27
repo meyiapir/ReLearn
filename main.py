@@ -1,9 +1,8 @@
 from libs.scorer import score
 from libs.csv_io import CSVIO
 
-comments = list(map(lambda x: x[3], CSVIO.read('blank.csv')))
-comments = list(filter(lambda x: x.strip() != '', comments))
-
+comments = CSVIO.read('blank.csv')
+comments = list(filter(lambda x: ('' not in x) or (x[3].strip() != ''), comments[:80]))
 score = score(comments)
 
 csv_data = []

@@ -1,3 +1,5 @@
+import time
+
 import streamlit as st
 import csv
 from io import StringIO
@@ -29,19 +31,21 @@ st.title('ReLearn by `NOSTYLIST`')
 uploaded_file = st.file_uploader("Загрузи файл с комментами, и давай их оценивать!", type=['csv'])
 
 if uploaded_file is not None:
+    start_time = time.time()
     # Чтение файла
     comments = CSVIO.read(uploaded_file)
     comments = list(filter(lambda x: x[3] != "", comments))
 
     # Оцениваем комментарии
     scores = score(comments)
-
+    elapsed_time = time.time() - start_time  # Измеряем прошедшее время
     # Подготавливаем данные для записи
     result_csv = CSVIO.write([f"{comment}: {scores[comment]}" for comment in scores])
 
     # Показываем обработанные данные
     st.write('Вот твои оценённые комментарии:')
     st.dataframe([[comment, scores[comment]] for comment in scores])
+    st.write(f"Время обработки: {int(elapsed_time // 60)} минут {int(elapsed_time % 60)} секунд")
 
     # Ссылка на скачивание обработанного файла
     st.download_button(

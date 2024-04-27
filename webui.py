@@ -11,29 +11,27 @@ class CSVIO:
         reader = csv.reader(text_file)
         next(reader)  # Пропускаем заголовок
         for row in reader:
-            if row:  # Проверяем, не пустая ли строка
-                comments.append(row[0].strip())  # Предполагается, что комментарий - это первый элемент в строке
+            if row:
+                comments.append(row)
         return comments
 
     @staticmethod
     def write(content):
         si = StringIO()
         writer = csv.writer(si)
-        writer.writerows([[item] for item in content])  # Оборачиваем каждый элемент в список
+        writer.writerows([[item] for item in content])
         return si.getvalue()
 
-# Подключаем файл с функцией score (убедитесь, что функция доступна)
-from libs.scorer import score
+from libs.scorer import score  # Предполагается, что функция score уже асинхронная
 
-# Заголовок приложения
 st.title('ReLearn by `NOSTYLIST`')
 
-# Загрузка файла пользователем
 uploaded_file = st.file_uploader("Загрузи файл с комментами, и давай их оценивать!", type=['csv'])
 
 if uploaded_file is not None:
     # Чтение файла
     comments = CSVIO.read(uploaded_file)
+    comments = list(filter(lambda x: x[3] != "", comments))
 
     # Оцениваем комментарии
     scores = score(comments)

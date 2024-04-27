@@ -1,5 +1,6 @@
 from libs.calculator import Calculator
 from libs.summary import Summarizer
+from libs.frequency import FrequencyCalculator
 
 
 def score(comments):
@@ -11,11 +12,16 @@ def score(comments):
     scores = {}
 
     for calculator in (positive, swear, tech, complexity):
+
         param_score = calculator.calculate(comments)
         scores.update({calculator.parameter: param_score})
 
-    summary = Summarizer().get_sentiment('\n'.join(comments))
+    active_coeff = FrequencyCalculator.get_active_coeff(comments)
 
-    scores.update(dict(summary=summary))
+    summary = Summarizer().get_sentiment('\n'.join([comment[3] for comment in comments]))
+
+    total_score = scores['complexity']*0.4 + scores['positive']*0.3 + scores['tech']*0.2 + scores['swear']*0.1
+
+    scores.update(dict(summary=summary, total=total_score, active=active_coeff))
 
     return scores

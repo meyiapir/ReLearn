@@ -6,7 +6,6 @@ from replicate.client import Client
 
 load_dotenv()
 
-print(os.environ.get('replicate_api_token'))
 
 replicate = Client(api_token=os.getenv('REPLICATE_API_TOKEN'))
 

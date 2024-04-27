@@ -16,6 +16,3 @@ class CSVIO:
         with open(filepath, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerows(content)
-
-
-CSVIO.read('blank.csv')

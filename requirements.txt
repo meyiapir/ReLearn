@@ -4,3 +4,4 @@ openai~=1.23.6
 python-dotenv~=1.0.1
 pyexcel
 pyexcel-xlsx
+pandas

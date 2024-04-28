@@ -1,4 +1,4 @@
-from libs.csv_io import CSVIO
+from libs.io import CSVIO
 from libs.scorer import score
 
 csv = CSVIO.read('scored.csv')[:80]
@@ -18,9 +18,9 @@ for line in csv:
                 stat[i] += 1
 
 
-stat = list(map(lambda x: x/len(csv)))
-
-print('pos swear tech complex')
+stat = list(map(lambda x: x/len(csv), stat))
 
 for s in stat:
     print(s*100, '%')
+
+print('Final score:', stat[0]*0.3+stat[1]*0.1+stat[2]*0.2+stat[3]*0.4)

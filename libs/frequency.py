@@ -17,5 +17,5 @@ class FrequencyCalculator:
 
         if active_coeff > 1: active_coeff = 1
 
-        return active_coeff
+        return round(active_coeff, 2)
 

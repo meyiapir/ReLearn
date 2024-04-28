@@ -20,7 +20,7 @@ def score(comments):
 
     summary = Summarizer().get_sentiment('\n'.join([comment[3] for comment in comments]))
 
-    total_score = scores['complexity']*0.4 + scores['positive']*0.3 + scores['tech']*0.2 + scores['swear']*0.1
+    total_score = round((scores['complexity']*0.4 + scores['positive']*0.3 + scores['tech']*0.2 + scores['swear']*0.07 + active_coeff*0.03), 2)
 
     scores.update(dict(summary=summary, total=total_score, active=active_coeff))
 

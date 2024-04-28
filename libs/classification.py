@@ -63,8 +63,6 @@ class LLamaClassifier:
                     input=input))
 
             try:
-                print(text)
-                print(float(content.strip()))
                 return float(content.strip())
             except Exception as e:
                 print(str(e))
